@@ -14,4 +14,8 @@ export default defineMessages({
     id: 'boilerplate.components.Header.features',
     defaultMessage: 'Features',
   },
+  jackpot: {
+    id: 'boilerplate.components.Header.jackpot',
+    defaultMessage: 'Jackpot',
+  },
 });
