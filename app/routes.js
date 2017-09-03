@@ -63,6 +63,14 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
+      path: '/carousel',
+      name: 'carousel',
+      getComponent(nextState, cb) {
+        import('containers/CarouselPage')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
