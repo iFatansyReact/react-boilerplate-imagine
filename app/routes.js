@@ -55,6 +55,14 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
+      path: '/banner',
+      name: 'banner',
+      getComponent(nextState, cb) {
+        import('containers/BannerPage')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

@@ -21,6 +21,7 @@
   "boilerplate.containers.FeaturePage.state_management.header": "Predictable state management",
   "boilerplate.containers.FeaturePage.state_management.message": "Unidirectional data flow allows for change logging and time travel\n    debugging.",
   "boilerplate.containers.JackpotPage.header": "Jackpot",
+  "boilerplate.containers.BannerPage.header": "Banner",
   "boilerplate.containers.HomePage.start_project.header": "Start your next react project in seconds",
   "boilerplate.containers.HomePage.start_project.message": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
   "boilerplate.containers.HomePage.tryme.atPrefix": "@",

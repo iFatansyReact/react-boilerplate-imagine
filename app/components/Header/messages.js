@@ -18,4 +18,8 @@ export default defineMessages({
     id: 'boilerplate.components.Header.jackpot',
     defaultMessage: 'Jackpot',
   },
+  banner: {
+    id: 'boilerplate.components.Header.banner',
+    defaultMessage: 'Banner',
+  },
 });
