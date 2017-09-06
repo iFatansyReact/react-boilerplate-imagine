@@ -22,7 +22,7 @@ const JackpotDiv = styled.div`
   width: 772px;
   height: 79px;
   overflow: hidden;
-  padding-left: 9px;
+  padding: 3px 0 7px 11px;
   margin: 3px auto;
   background: transparent url(${imgBg}) repeat 0 0;
   transform: translate3d(0,0,0);
@@ -30,24 +30,27 @@ const JackpotDiv = styled.div`
   display: block;
 `;
 
+const JackpotArea = styled.div`
+    width:100%;
+    overflow: hidden;
+    height: 71px;
+`;
 
 const MainNumber = styled.div`
   opacity: 1;
   float: left;
-  
   transition: -webkit-transform 500ms ease; /* 移動移動 */
-  transform: translate3d(0, ${(props) => props.number * -71.5}px, 0px);
   position: relative;
   display: block;
   left: 0;
   top: 0;
-  width: 52px;
-  height: 78px;
-  margin-right: 6px;
-  background-color: red;
+  width: 49px;
+  height: 100%;
+  margin-right: 9px;
+  transform: translate3d(0, ${(props) => props.number * -71}px, 0px);
 
   &:nth-child(3n) {
-    margin-right: 27px;
+    margin-right: 30px;
   }
 
   &:last-child {
@@ -59,25 +62,64 @@ const MainNumber = styled.div`
 const JackpotNumber = styled.div`
   float: left;
   width: 52px;
-  height: 78px;
+  height: 71px;
   background-image: url(${imgAll});
-  background-position-y: -${(props) => props.number * 71.5}px;
   height: 100%;
   min-height: 1px;
-  outline: ${(props) => props.outline}  | ''; 
+  outline: ${(props) => props.outline || ''}; 
+`;
+
+const Nnumber0 = JackpotNumber.extend`
+  background-position-y:-7px;
+`;
+
+const Nnumber1 = JackpotNumber.extend`
+  background-position-y:-75px;
+`;
+
+const Nnumber2 = JackpotNumber.extend`
+  background-position-y:-149px;
+`;
+
+const Nnumber3 = JackpotNumber.extend`
+  background-position-y:-221px;
+`;
+
+const Nnumber4 = JackpotNumber.extend`
+  background-position-y:-292px;
+`;
+
+const Nnumber5 = JackpotNumber.extend`
+  background-position-y:-360px;
+`;
+
+const Nnumber6 = JackpotNumber.extend`
+  background-position-y:-431px;
+`;
+
+const Nnumber7 = JackpotNumber.extend`
+  background-position-y:-502px;
+`;
+
+const Nnumber8 = JackpotNumber.extend`
+  background-position-y:-574px;
+`;
+
+const Nnumber9 = JackpotNumber.extend`
+  background-position-y:-645px;
 `;
 
 
 export default class CarouselPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = { jackpotTotal: PropTypes.number };
-  static defaultProps = { jackpotTotal: 34853948976 };
+  static defaultProps = { jackpotTotal: 1234567890 };
 
   constructor(props) {
     super(props);
     this.state = {
       jackpotTotal: props.jackpotTotal,
-      jackpot:
-      Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+      jackpot: Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+      tmpJackpot: Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
     };
   }
 
@@ -115,6 +157,15 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
       return pot;
     });
 
+    // this.setState(tmpJackpot);
+
+    // tmpJackpot.List(tmpJackpot);
+
+
+    // const tmpJackpot = tmpJackpot.map((ipot, index) => {
+
+
+    // });
 
     return (
       <div>
@@ -129,83 +180,75 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
         </H1>
 
         <JackpotDiv>
-          {
-            tmpJackpot.map((pot, index) => {
-              const key = index;
-              return (
-                <MainNumber key={`${key}`} number={pot}>
-                  <JackpotNumber
+          <JackpotArea>
+            {
+              tmpJackpot.map((pot, index) => {
+                const newKey = index;
+                return (
+                  <MainNumber key={newKey} number={pot}>
+                    {/* <JackpotNumber
                     data-index={-1}
                     number={9}
-                  />
-                  <JackpotNumber
-                    data-index={0}
-                    tabindex={-1}
-                    outline="none"
-                    number={0}
-                  />
-                  <JackpotNumber
-                    data-index={1}
-                    tabindex={-1}
-                    outline="none"
-                    number={1}
-                  />
-                  <JackpotNumber
-                    data-index={2}
-                    tabindex={-1}
-                    outline="none"
-                    number={2}
-                  />
-                  <JackpotNumber
-                    data-index={3}
-                    tabindex={-1}
-                    outline="none"
-                    number={3}
-                  />
-                  <JackpotNumber
-                    data-index={4}
-                    tabindex={-1}
-                    outline="none"
-                    number={4}
-                  />
-                  <JackpotNumber
-                    data-index={5}
-                    tabindex={-1}
-                    outline="none"
-                    number={5}
-                  />
-                  <JackpotNumber
-                    data-index={6}
-                    tabindex={-1}
-                    outline="none"
-                    number={6}
-                  />
-                  <JackpotNumber
-                    data-index={7}
-                    tabindex={-1}
-                    outline="none"
-                    number={7}
-                  />
-                  <JackpotNumber
-                    data-index={8}
-                    tabindex={-1}
-                    outline="none"
-                    number={8}
-                  />
-                  <JackpotNumber
-                    data-index={9}
-                    tabindex={-1}
-                    outline="none"
-                    number={9}
-                  />
-                  <JackpotNumber
-                    data-index={10}
-                    number={9}
-                  />
-                </MainNumber>
-              );
-            })
-          }
+                  /> */}
+                    <Nnumber0
+                      data-index={0}
+                      tabindex={-1}
+                      outline="none"
+                    />
+                    <Nnumber1
+                      data-index={1}
+                      tabindex={-1}
+                      outline="none"
+                    />
+                    <Nnumber2
+                      data-index={2}
+                      tabindex={-1}
+                      outline="none"
+                    />
+                    <Nnumber3
+                      data-index={3}
+                      tabindex={-1}
+                      outline="none"
+                      number={3}
+                    />
+                    <Nnumber4
+                      data-index={4}
+                      tabindex={-1}
+                      outline="none"
+                    />
+                    <Nnumber5
+                      data-index={5}
+                      tabindex={-1}
+                      outline="none"
+                    />
+                    <Nnumber6
+                      data-index={6}
+                      tabindex={-1}
+                      outline="none"
+                    />
+                    <Nnumber7
+                      data-index={7}
+                      tabindex={-1}
+                      outline="none"
+                    />
+                    <Nnumber8
+                      data-index={8}
+                      tabindex={-1}
+                      outline="none"
+                    />
+                    <Nnumber9
+                      data-index={9}
+                      tabindex={-1}
+                      outline="none"
+                    />
+                    <Nnumber0
+                      data-index={-1}
+                    />
+                  </MainNumber>
+                );
+              })
+            }
+          </JackpotArea>
         </JackpotDiv>
       </div>
 
