@@ -1,3 +1,4 @@
+// eslint-disable
 /*
  * JackpotPage
  *
@@ -36,10 +37,12 @@ const JackpotArea = styled.div`
     height: 71px;
 `;
 
-const MainNumber = styled.div`
+const MaiNumber = styled.div`
   opacity: 1;
   float: left;
-  transition: -webkit-transform 500ms ease; /* 移動移動 */
+  /*transition: -webkit-transform 500ms ease; /* 移動移動 */
+  /*transition: ${(props) => props.number < 10 ? '-webkit-transform 500ms ease' : 'none'}; /* 移動移動 */
+  
   position: relative;
   display: block;
   left: 0;
@@ -47,7 +50,8 @@ const MainNumber = styled.div`
   width: 49px;
   height: 100%;
   margin-right: 9px;
-  transform: translate3d(0, ${(props) => props.number * -71}px, 0px);
+  transform: translate3d(0, ${(props) => Number(props.number) === 10 ? 0 : (Number(props.number) + 1) * -71}px, 0px);
+  /*transform: translate3d(0, 71px, 0px);*/
 
   &:nth-child(3n) {
     margin-right: 30px;
@@ -69,58 +73,62 @@ const JackpotNumber = styled.div`
   outline: ${(props) => props.outline || ''}; 
 `;
 
-const Nnumber0 = JackpotNumber.extend`
+const Number0 = JackpotNumber.extend`
   background-position-y:-7px;
 `;
 
-const Nnumber1 = JackpotNumber.extend`
+const Number1 = JackpotNumber.extend`
   background-position-y:-75px;
 `;
 
-const Nnumber2 = JackpotNumber.extend`
+const Number2 = JackpotNumber.extend`
   background-position-y:-149px;
 `;
 
-const Nnumber3 = JackpotNumber.extend`
+const Number3 = JackpotNumber.extend`
   background-position-y:-221px;
 `;
 
-const Nnumber4 = JackpotNumber.extend`
+const Number4 = JackpotNumber.extend`
   background-position-y:-292px;
 `;
 
-const Nnumber5 = JackpotNumber.extend`
+const Number5 = JackpotNumber.extend`
   background-position-y:-360px;
 `;
 
-const Nnumber6 = JackpotNumber.extend`
+const Number6 = JackpotNumber.extend`
   background-position-y:-431px;
 `;
 
-const Nnumber7 = JackpotNumber.extend`
+const Number7 = JackpotNumber.extend`
   background-position-y:-502px;
 `;
 
-const Nnumber8 = JackpotNumber.extend`
+const Number8 = JackpotNumber.extend`
   background-position-y:-574px;
 `;
 
-const Nnumber9 = JackpotNumber.extend`
+const Number9 = JackpotNumber.extend`
+  background-position-y:-645px;
+`;
+
+const Number10 = JackpotNumber.extend`
   background-position-y:-645px;
 `;
 
 
 export default class CarouselPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = { jackpotTotal: PropTypes.number };
-  static defaultProps = { jackpotTotal: 1234567890 };
+  static defaultProps = { jackpotTotal: 12345678 };
 
   constructor(props) {
     super(props);
     this.state = {
       jackpotTotal: props.jackpotTotal,
       jackpot: Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
-      tmpJackpot: Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
     };
+    this.preJackpot = Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   }
 
   componentDidMount() {
@@ -134,13 +142,14 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
   startCount() {
     this.timerId = setInterval(
       () => this.tick(),
-      1000,
+      1500,
     );
   }
 
   tick() {
-    const n = Math.floor(Math.random() * (100));
-    this.setState({ jackpotTotal: (this.state.jackpotTotal + n) });
+    // const n = Math.floor(Math.random() * (100));
+    // this.setState({ jackpotTotal: (this.state.jackpotTotal + n) });
+    this.setState({ jackpotTotal: (this.state.jackpotTotal + 1) });
   }
 
   render() {
@@ -184,67 +193,96 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
             {
               tmpJackpot.map((pot, index) => {
                 const newKey = index;
+                const newPot = pot;
+
+                // if (index === 11) {
+                //  console.log(this.preJackpot.get(index));
+                // }
+
+                // 檢查上一次的數字是否為9, 若為9, 先跳到 10
+                // if (index === 11) {
+                //   console.log(`pre:${this.preJackpot.get(index)}`, `now:${newPot}`);
+                // }
+
+
+                if (document.getElementById(`number${newKey}`)) {
+                  if (newPot === '9') {
+                    document.getElementById(`number${newKey}`).style.transform = 'translate3d(0, 0, 0)';
+                    document.getElementById(`number${newKey}`).style.transition = 'null';
+                    // newPot = 10;
+                  } else {
+                    document.getElementById(`number${newKey}`).style.transform = '';
+                    document.getElementById(`number${newKey}`).style.transition = '-webkit-transform 500ms ease';
+                  }
+                }
+
+                this.preJackpot = this.preJackpot.set(index, pot);
+                // if (index === 11) {
+                //  console.log(this.preJackpot.get(index));
+                // }
+
                 return (
-                  <MainNumber key={newKey} number={pot}>
-                    {/* <JackpotNumber
-                    data-index={-1}
-                    number={9}
-                  /> */}
-                    <Nnumber0
+                  <MaiNumber key={newKey} number={newPot} id={`number${newKey}`} >
+                    <Number10
+                      data-index={-1}
+                      number={9}
+                      outline="none"
+                    />
+                    <Number0
                       data-index={0}
                       tabindex={-1}
                       outline="none"
                     />
-                    <Nnumber1
+                    <Number1
                       data-index={1}
                       tabindex={-1}
                       outline="none"
                     />
-                    <Nnumber2
+                    <Number2
                       data-index={2}
                       tabindex={-1}
                       outline="none"
                     />
-                    <Nnumber3
+                    <Number3
                       data-index={3}
                       tabindex={-1}
                       outline="none"
                       number={3}
                     />
-                    <Nnumber4
+                    <Number4
                       data-index={4}
                       tabindex={-1}
                       outline="none"
                     />
-                    <Nnumber5
+                    <Number5
                       data-index={5}
                       tabindex={-1}
                       outline="none"
                     />
-                    <Nnumber6
+                    <Number6
                       data-index={6}
                       tabindex={-1}
                       outline="none"
                     />
-                    <Nnumber7
+                    <Number7
                       data-index={7}
                       tabindex={-1}
                       outline="none"
                     />
-                    <Nnumber8
+                    <Number8
                       data-index={8}
                       tabindex={-1}
                       outline="none"
                     />
-                    <Nnumber9
+                    <Number9
                       data-index={9}
                       tabindex={-1}
                       outline="none"
                     />
-                    <Nnumber0
+                    <Number0
                       data-index={-1}
                     />
-                  </MainNumber>
+                  </MaiNumber>
                 );
               })
             }

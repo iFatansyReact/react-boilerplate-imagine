@@ -58,8 +58,7 @@ export default class JackpotPage extends React.Component { // eslint-disable-lin
     super(props);
     this.state = {
       jackpotTotal: props.jackpotTotal,
-      jackpot:
-      Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+      jackpot: Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
     };
   }
 
@@ -74,16 +73,18 @@ export default class JackpotPage extends React.Component { // eslint-disable-lin
   startCount() {
     this.timerId = setInterval(
       () => this.tick(),
-      1000,
+      1500,
     );
   }
 
   tick() {
-    const n = Math.floor(Math.random() * (100));
-    this.setState({ jackpotTotal: (this.state.jackpotTotal + n) });
+    // const n = Math.floor(Math.random() * (100));
+    // this.setState({ jackpotTotal: (this.state.jackpotTotal + n) });
+    this.setState({ jackpotTotal: (this.state.jackpotTotal + 1) });
   }
 
   render() {
+    // 往上加到指定的數字,但不是一次到位,而是一次+1,+1上去
     const realPotArray = this.state.jackpotTotal.toString().split('');
 
     let tmpInt = 0;
