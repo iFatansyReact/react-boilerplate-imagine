@@ -5,6 +5,7 @@
  * List all the Jackpot
  */
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
@@ -50,7 +51,7 @@ const MaiNumber = styled.div`
   width: 49px;
   height: 100%;
   margin-right: 9px;
-  transform: translate3d(0, ${(props) => Number(props.number) === 10 ? 0 : (Number(props.number) + 1) * -71}px, 0px);
+  /*transform: translate3d(0, ${(props) => Number(props.number) === 10 ? 0 : (Number(props.number) + 1) * -71}px, 0px);*/
   /*transform: translate3d(0, 71px, 0px);*/
 
   &:nth-child(3n) {
@@ -120,7 +121,7 @@ const Number10 = JackpotNumber.extend`
 
 export default class CarouselPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = { jackpotTotal: PropTypes.number };
-  static defaultProps = { jackpotTotal: 12345678 };
+  static defaultProps = { jackpotTotal: 12345648 };
 
   constructor(props) {
     super(props);
@@ -133,6 +134,23 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
 
   componentDidMount() {
     this.startCount();
+  }
+
+  componentDidUpdate() {
+    for (let i = 0; i <= 11; i += 1) {
+      const obj = document.getElementById(`number${i}`);
+      if (Number(obj.getAttribute('data-number')) === 9) {
+        setTimeout(() => {
+          obj.style.transition = 'none';
+          obj.style.transform = 'translate3d(0, 0, 0)';
+          obj.setAttribute('data-number', -1);
+        }, 500);
+      } else {
+        obj.style.transition = 'transform 500ms ease';
+      }
+    }
+
+    return true; /* need return true/false */
   }
 
   componentWillUnmount() {
@@ -166,16 +184,6 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
       return pot;
     });
 
-    // this.setState(tmpJackpot);
-
-    // tmpJackpot.List(tmpJackpot);
-
-
-    // const tmpJackpot = tmpJackpot.map((ipot, index) => {
-
-
-    // });
-
     return (
       <div>
         <Helmet
@@ -195,34 +203,21 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
                 const newKey = index;
                 const newPot = pot;
 
-                // if (index === 11) {
-                //  console.log(this.preJackpot.get(index));
-                // }
-
-                // 檢查上一次的數字是否為9, 若為9, 先跳到 10
-                // if (index === 11) {
-                //   console.log(`pre:${this.preJackpot.get(index)}`, `now:${newPot}`);
-                // }
-
-
                 if (document.getElementById(`number${newKey}`)) {
-                  if (newPot === '9') {
-                    document.getElementById(`number${newKey}`).style.transform = 'translate3d(0, 0, 0)';
-                    document.getElementById(`number${newKey}`).style.transition = 'null';
-                    // newPot = 10;
-                  } else {
-                    document.getElementById(`number${newKey}`).style.transform = '';
-                    document.getElementById(`number${newKey}`).style.transition = '-webkit-transform 500ms ease';
+                  if (index === 11) {
+                    console.log(`pre:${this.preJackpot.get(index)}`, `now:${newPot}`);
                   }
                 }
 
                 this.preJackpot = this.preJackpot.set(index, pot);
-                // if (index === 11) {
-                //  console.log(this.preJackpot.get(index));
-                // }
 
                 return (
-                  <MaiNumber key={newKey} number={newPot} id={`number${newKey}`} >
+                  <MaiNumber
+                    key={newKey} number={newPot} id={`number${newKey}`} data-number={newPot} style={{
+                      transition: 'transform 500ms ease', /* 移動移動 */
+                      transform: `translate3d(0, ${(Number(newPot) + 1) * -71}px, 0px)`,
+                    }}
+                  >
                     <Number10
                       data-index={-1}
                       number={9}
@@ -288,7 +283,7 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
             }
           </JackpotArea>
         </JackpotDiv>
-      </div>
+      </div >
 
     );
   }
