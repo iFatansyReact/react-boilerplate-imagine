@@ -12,7 +12,7 @@ import Immutable from 'immutable';
 import classNames from 'classnames';
 import H1 from 'components/H1';
 import messages from './messages';
-import styles from './styles.css';
+require('./styles.css');
 
 export default class CarouselPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = { jackpotTotal: PropTypes.number };
