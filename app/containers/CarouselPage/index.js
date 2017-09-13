@@ -49,6 +49,10 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
   componentDidUpdate() {
     // this.init = true;
     // this.preJackpot = this.state.jackpot;
+    this.timerId = setTimeout(
+      () => this.move(),
+      1000,
+    );
   }
 
   componentWillUnmount() {
@@ -58,7 +62,7 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
   startCount() {
     this.timerId = setInterval(
       () => this.tick(),
-      8500,
+      1500,
     );
     // this.timerId = setTimeout(
     //   () => this.tick(),
@@ -69,11 +73,30 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
   tick() {
     // const n = Math.floor(Math.random() * (100));
     // this.setState({ jackpotTotal: (this.state.jackpotTotal + n) });
-    this.setState({ jackpotTotal: (this.state.jackpotTotal + 2) });
+    this.setState({ jackpotTotal: (this.state.jackpotTotal + 27) });
+  }
+
+  move() {
+    for (let i = 0; i <= 11; i += 1) {
+      const numberDom = document.getElementById(`mainNumber${i}`);
+      const translate3dY = numberDom.getAttribute('data-translate3dY');
+      numberDom.style.transform = translate3dY;
+      numberDom.style.transition = 'transform 500ms ease';
+    }
+
+    // const number11 = document.getElementById('mainNumber11');
+    // const translate3dY = number11.getAttribute('data-translate3dY');
+    // number11.style.transform = translate3dY;
+    // number11.style.transition = 'transform 500ms ease';
   }
 
   render() {
-    console.log('==========render start=========');
+    // const tmpNumber11 = document.getElementById('mainNumber11');
+    // if (tmpNumber11) {
+    //   tmpNumber11.style.transition = '';
+    // }
+
+    // console.log('==========render start=========');
     const realPotArray = this.state.jackpotTotal.toString().split('');
 
     let tmpInt = 0;
@@ -92,6 +115,15 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
     if (this.init === false) {
       this.preJackpot = this.tmpJackpot;
       this.init = true;
+    }
+
+    for (let i = 0; i <= 11; i += 1) {
+      const numberDom = document.getElementById(`mainNumber${i}`);
+      if (numberDom) {
+        // const translate3dY = number11.getAttribute('data-translate3dY');
+        numberDom.style.transform = 'translate3d(0, -71px, 0)';
+        numberDom.style.transition = '';
+      }
     }
 
 
@@ -130,12 +162,15 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
 
 
                 const tmpHtml = [];
-                if (index === 11) {
-                  console.log(tmpHtml, `preCount:${preCount}`, this.preJackpot.toArray(), `nowCount:${nowCount}`);
-                }
+                // if (index === 11) {
+                // console.log(tmpHtml, `preCount:${preCount }`, this.preJackpot.toArray(), `nowCount:${nowCount }`);
+                // }
+
+                let lastNumber;
                 for (let i = preCount; i <= nowCount; i += 1) {
                   const number = i % 10;
-                  const numberNewKey = `${newKey}-${number}`;
+                  const numberNewKey = `${newKey}-${nowCount}-${i}`;
+                  lastNumber = number;
                   tmpHtml.push(
                     <div
                       key={numberNewKey}
@@ -146,21 +181,28 @@ export default class CarouselPage extends React.Component { // eslint-disable-li
                   );
                 }
 
+                const numberLastKey = `${newKey}-${nowCount}-reset`;
+                tmpHtml.unshift(
+                  <div
+                    key={`${numberLastKey}`}
+                    data-key={`${numberLastKey}`}
+                    data-number={lastNumber}
+                    className={classNames('jackpotNumber', this.styleNumber[lastNumber])}
+                  />
+                );
+
 
                 // 取得下一個位數共2位數的 數字差,來產生總共幾個數字
                 // ex: 988 -> 98
                 //    1000 ->100
 
-                const translate3dX = (nowCount - preCount) * -71;
+                const translate3dY = (1 + (nowCount - preCount)) * -71;
                 return (
                   <div
                     className="maiNumber"
                     key={newKey}
-                    data-translate3dX={translate3dX}
+                    data-translate3dY={`translate3d(0, ${translate3dY}px, 0) `}
                     id={`mainNumber${newKey}`}
-                    style={{
-                      transform: `translate3d(0, ${translate3dX}px, 0px)`,
-                    }}
                   >
                     {tmpHtml}
                   </div>
