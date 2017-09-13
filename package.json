@@ -257,6 +257,7 @@
     "babel-preset-stage-0": "6.16.0",
     "cheerio": "0.22.0",
     "circular-dependency-plugin": "2.0.0",
+    "classnames": "^2.2.5",
     "coveralls": "2.11.15",
     "css-loader": "0.26.1",
     "enzyme": "2.6.0",

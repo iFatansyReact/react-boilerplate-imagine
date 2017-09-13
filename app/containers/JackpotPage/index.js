@@ -84,6 +84,7 @@ export default class JackpotPage extends React.Component { // eslint-disable-lin
   }
 
   render() {
+    console.log('test2');
     // 往上加到指定的數字,但不是一次到位,而是一次+1,+1上去
     const realPotArray = this.state.jackpotTotal.toString().split('');
 
