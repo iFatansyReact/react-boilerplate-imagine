@@ -6,7 +6,7 @@ $asset:'http://localhost:4000';
   overflow: hidden;
   padding: 3px 0 7px 11px;
   margin: 3px auto;
-  background: transparent url($asset + '/common/jackpot/number-bg.png') repeat 0 0;
+  background: transparent url('./img/number-bg.png') repeat 0 0;
   transform: translate3d(0, 0, 0);
   position: relative;
   display: block;
@@ -41,7 +41,7 @@ $asset:'http://localhost:4000';
   float: left;
   width: 52px;
   height: 71px;
-  background-image: url($asset + '/common/jackpot/number-all.png');
+  background-image: url('./img/number-all.png');
   min-height: 1px;
   outline: none;
 }
