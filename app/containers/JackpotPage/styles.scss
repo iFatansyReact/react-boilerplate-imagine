@@ -1,0 +1,25 @@
+.JackpotDiv {
+  width: 772px;
+  height: 79px;
+  overflow: hidden;
+  padding-left: 9px;
+  margin: 3px auto;
+  background: transparent url('./img/number-bg.png') repeat 0 0;
+}
+
+.JackpotNumber {
+  float: left;
+  width: 50px;
+  height: 75px;
+  margin-right: 9px;
+  transition: all 0.9s;
+  background: transparent url('./img/jackpot.png') repeat-y;
+  background-position-y: -1500px;
+  &:nth-child(3n) {
+    margin-right: 27px;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
