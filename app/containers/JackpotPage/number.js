@@ -21,7 +21,7 @@ export default class Number extends React.Component {
 
   componentWillUpdate() {
     // 還原動態動畫
-    this.refs.refNumber.style.transition = `background-position-y ${this.props.moveTimeMs}ms`;
+    this.refNumber.style.transition = `background-position-y ${this.props.moveTimeMs}ms`;
   }
 
   componentDidUpdate() {
@@ -37,7 +37,7 @@ export default class Number extends React.Component {
    * @memberof Number
    */
   reset() {
-    const refNumber = this.refs.refNumber;
+    const refNumber = this.refNumber;
     const resetCount = refNumber.getAttribute('data-count');
     const move = parseInt(resetCount.substr(-1, 1), 0) * -75;
     refNumber.style.transition = '';
@@ -62,7 +62,7 @@ export default class Number extends React.Component {
         className="JackpotNumber"
         data-preCount={preCount}
         data-count={this.props.count}
-        ref="refNumber"
+        ref={(input) => { this.refNumber = input; }}
         // data-moveCount={`${lastInt}+${diff}=${moveCount}`}
         style={{
           backgroundPositionY: `${moveCount * -75}px`,
