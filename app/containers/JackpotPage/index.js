@@ -103,10 +103,9 @@ export default class JackpotPage extends React.Component {
    * @memberof JackpotPage
    */
   tick() {
-    const tickCount = this.props.tickCount;
+    let tickCount = this.props.tickCount;
     if (this.props.isRandom) {
-      const n = Math.floor(Math.random() * (100));
-      this.setState({ jackpotTotal: (this.state.jackpotTotal + n) });
+      tickCount = Math.floor(Math.random() * (100));
     }
 
     this.setState({ jackpotTotal: (this.state.jackpotTotal + tickCount) });
