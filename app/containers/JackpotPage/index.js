@@ -35,19 +35,30 @@ import messages from './messages';
 import Number from './number';
 require('./styles.scss');
 
-export default class JackpotPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  static propTypes = { jackpotTotal: PropTypes.number };
-  static defaultProps = { jackpotTotal: 34853948976 };
+export default class JackpotPage extends React.Component {
+  static propTypes = {
+    jackpotTotal: PropTypes.number, // 遊戲總彩金
+    isRandom: PropTypes.bool, // 數字已亂數跳動(若設定為true,則不會採納tickCount參數)
+    tickCount: PropTypes.number, // 每次增加總彩金數字
+    tickTimeMs: PropTypes.number, // 數字跳動間隔時間(ms)
+    moveTimeMs: PropTypes.number, // 數字移動限制時間(ms)
+  };
+  static defaultProps = {
+    jackpotTotal: 123456,
+    isRandom: true,
+    tickCount: 27,
+    tickTimeMs: 1900,
+    moveTimeMs: 900,
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      jackpotTotal: props.jackpotTotal,
+      jackpotTotal: Math.floor(props.jackpotTotal),
     };
 
-    this.init = false;
-    this.activeJackpot = Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-    this.preJackpot = Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    this.activeJackpot = Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]); // 目前的jackpot
+    this.preJackpot = Immutable.List([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);    // 上一次的Jackpot
   }
 
   componentDidMount() {
@@ -58,10 +69,14 @@ export default class JackpotPage extends React.Component { // eslint-disable-lin
     clearInterval(this.timerId);
   }
 
+  /**
+   * 計時跳動數字
+   * @memberof JackpotPage
+   */
   startCount() {
     this.timerId = setInterval(
       () => this.tick(),
-      3500,
+      this.props.tickTimeMs,
     );
   }
 
@@ -83,28 +98,22 @@ export default class JackpotPage extends React.Component { // eslint-disable-lin
     });
   }
 
+  /**
+   * 跳動數字
+   * @memberof JackpotPage
+   */
   tick() {
-    // const n = Math.floor(Math.random() * (100));
-    // this.setState({ jackpotTotal: (this.state.jackpotTotal + n) });
-    this.setState({ jackpotTotal: (this.state.jackpotTotal + 24) });
+    const tickCount = this.props.tickCount;
+    if (this.props.isRandom) {
+      const n = Math.floor(Math.random() * (100));
+      this.setState({ jackpotTotal: (this.state.jackpotTotal + n) });
+    }
+
+    this.setState({ jackpotTotal: (this.state.jackpotTotal + tickCount) });
   }
 
   render() {
-    // 往上加到指定的數字
-    // const realPotArray = this.state.jackpotTotal.toString().split('');
-
-    // let tmpInt = 0;
-    // // 將預設的12位陣列為0的以map取出, 並確認 真實pot數字位數相同時才放入,否則依照原值放入
-    // const tmpJackpot = this.state.jackpot.map((pot, index) => {
-    //   if (index >= (this.state.jackpot.size - realPotArray.length)) {
-    //     const newPot = realPotArray[tmpInt];
-    //     tmpInt += 1;
-    //     return newPot;
-    //   }
-    //   return pot;
-    // });
     this.activeJackpot = this.formater();
-
 
     return (
       <div>
@@ -129,6 +138,7 @@ export default class JackpotPage extends React.Component { // eslint-disable-lin
                   key={key}
                   initCount={this.props.jackpotTotal}
                   count={count}
+                  moveTimeMs={this.props.moveTimeMs}
                 />
               );
             })
