@@ -45,7 +45,7 @@ export default class JackpotPage extends React.Component {
   };
   static defaultProps = {
     jackpotTotal: 123456,
-    isRandom: true,
+    isRandom: false,
     tickCount: 27,
     tickTimeMs: 1900,
     moveTimeMs: 900,
