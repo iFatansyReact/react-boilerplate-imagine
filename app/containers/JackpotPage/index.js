@@ -41,7 +41,7 @@ export default class JackpotPage extends React.Component {
     isRandom: PropTypes.bool, // 數字已亂數跳動(若設定為true,則不會採納tickCount參數)
     tickCount: PropTypes.number, // 每次增加總彩金數字
     tickTimeMs: PropTypes.number, // 數字跳動間隔時間(ms)
-    moveTimeMs: PropTypes.number, // 數字移動限制時間(ms)
+    moveTimeMs: PropTypes.number, // 數字移動速度-限制時間(ms)
   };
   static defaultProps = {
     jackpotTotal: 123456,
@@ -106,6 +106,10 @@ export default class JackpotPage extends React.Component {
     let tickCount = this.props.tickCount;
     if (this.props.isRandom) {
       tickCount = Math.floor(Math.random() * (100));
+      // 亂數跳動若為100,10 則為預設跳動數字, 因為後面位數若相同則不會異動
+      if (tickCount === 100 || tickCount === 10) {
+        tickCount = this.props.tickCount;
+      }
     }
 
     this.setState({ jackpotTotal: (this.state.jackpotTotal + tickCount) });
