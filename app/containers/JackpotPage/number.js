@@ -13,11 +13,16 @@ export default class Number extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reset: 0,
+      positionY: 0,
     };
 
     this.preCount = 0;
-    this.postionY = -75; // lg:-75, md:-67.5, sm:-64.5, xs:-33, default:-21
+    this.settingPositionY = { lg: -75, md: -67.5, sm: -64.5, xs: -33, default: -21 };
+  }
+
+  componentDidMount() {
+    this.handleResize();
+    window.addEventListener('resize', this.handleResize);
   }
 
   componentWillUpdate() {
@@ -33,6 +38,10 @@ export default class Number extends React.Component {
     );
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
   /**
    * 重設位置
    * @memberof Number
@@ -40,9 +49,40 @@ export default class Number extends React.Component {
   reset() {
     const refNumber = this.refNumber;
     const resetCount = refNumber.getAttribute('data-count');
-    const move = parseInt(resetCount.substr(-1, 1), 0) * this.postionY;
+    const move = parseInt(resetCount.substr(-1, 1), 0) * this.state.positionY;
     refNumber.style.transition = '';
     refNumber.style.backgroundPositionY = `${move}px`;
+  }
+
+  /**
+   * 當畫面尺寸變更時觸發
+   * @memberof Number
+   */
+  handleResize = () => {
+    const width = window.innerWidth;
+    // console.log(width);
+    // console.log(this.settingPositionY.lg, this.state.positionY);
+    if (width >= 1200 && this.state.positionY !== this.settingPositionY.lg) {
+      this.setState({
+        positionY: this.settingPositionY.lg,
+      });
+    } else if (width >= 992 && this.state.positionY !== this.settingPositionY.md) {
+      this.setState({
+        positionY: this.settingPositionY.md,
+      });
+    } else if (width >= 768 && this.state.positionY !== this.settingPositionY.sm) {
+      this.setState({
+        positionY: this.settingPositionY.sm,
+      });
+    } else if (width >= 480 && this.state.positionY !== this.settingPositionY.xs) {
+      this.setState({
+        positionY: this.settingPositionY.xs,
+      });
+    } else if (this.state.positionY !== this.settingPositionY.default) {
+      this.setState({
+        positionY: this.settingPositionY.default,
+      });
+    }
   }
 
   render() {
@@ -67,7 +107,7 @@ export default class Number extends React.Component {
           ref={(input) => { this.refNumber = input; }}
           // data-moveCount={`${lastInt}+${diff}=${moveCount}`}
           style={{
-            backgroundPositionY: `${moveCount * this.postionY}px`,
+            backgroundPositionY: `${moveCount * this.state.positionY}px`,
           }}
         />
       </div>
