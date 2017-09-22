@@ -58,16 +58,18 @@ export default class Number extends React.Component {
     this.preCount = this.props.count;
 
     return (
-      <div
-        className="JackpotNumber"
-        data-preCount={preCount}
-        data-count={this.props.count}
-        ref={(input) => { this.refNumber = input; }}
-        // data-moveCount={`${lastInt}+${diff}=${moveCount}`}
-        style={{
-          backgroundPositionY: `${moveCount * -75}px`,
-        }}
-      />
+      <div className="JackpotBox">
+        <div
+          className="JackpotNumber"
+          data-preCount={preCount}
+          data-count={this.props.count}
+          ref={(input) => { this.refNumber = input; }}
+          // data-moveCount={`${lastInt}+${diff}=${moveCount}`}
+          style={{
+            backgroundPositionY: `${moveCount * -75}px`,
+          }}
+        />
+      </div>
 
     );
   }

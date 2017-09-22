@@ -106,8 +106,8 @@ export default class JackpotPage extends React.Component {
     let tickCount = this.props.tickCount;
     if (this.props.isRandom) {
       tickCount = Math.floor(Math.random() * (100));
-      // 亂數跳動若為100,10 則為預設跳動數字, 因為後面位數若相同則不會異動
-      if (tickCount === 100 || tickCount === 10) {
+      // 亂數跳動若為100,10 則為預設跳動數字, 因為計算只到2位數, 所屬第三位數開始不會動
+      if (tickCount >= 100) {
         tickCount = this.props.tickCount;
       }
     }
@@ -117,6 +117,20 @@ export default class JackpotPage extends React.Component {
 
   render() {
     this.activeJackpot = this.formater();
+
+    const numberList = this.activeJackpot.map((pot, index) => {
+      // 計算進位數
+      const count = parseInt(this.activeJackpot.join('').substr(0, index + 1), 0);
+      const key = index;
+      return (
+        <Number
+          key={key}
+          initCount={this.props.jackpotTotal}
+          count={count}
+          moveTimeMs={this.props.moveTimeMs}
+        />
+      );
+    });
 
     return (
       <div>
@@ -132,19 +146,10 @@ export default class JackpotPage extends React.Component {
 
         <div className="JackpotDiv">
           {
-            this.activeJackpot.map((pot, index) => {
-              // 計算進位數
-              const count = parseInt(this.activeJackpot.join('').substr(0, index + 1), 0);
-              const key = index;
-              return (
-                <Number
-                  key={key}
-                  initCount={this.props.jackpotTotal}
-                  count={count}
-                  moveTimeMs={this.props.moveTimeMs}
-                />
-              );
-            })
+            numberList
+              .insert(3, <div className="thousand" key="thousand1" />)
+              .insert(7, <div className="thousand" key="thousand2" />)
+              .insert(11, <div className="thousand" key="thousand3" />)
           }
         </div>
       </div>
