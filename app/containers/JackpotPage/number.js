@@ -17,6 +17,7 @@ export default class Number extends React.Component {
     };
 
     this.preCount = 0;
+    this.postionY = -75; // lg:-75, md:-67.5, sm:-64.5, xs:-33, default:-21
   }
 
   componentWillUpdate() {
@@ -39,7 +40,7 @@ export default class Number extends React.Component {
   reset() {
     const refNumber = this.refNumber;
     const resetCount = refNumber.getAttribute('data-count');
-    const move = parseInt(resetCount.substr(-1, 1), 0) * -75;
+    const move = parseInt(resetCount.substr(-1, 1), 0) * this.postionY;
     refNumber.style.transition = '';
     refNumber.style.backgroundPositionY = `${move}px`;
   }
@@ -66,7 +67,7 @@ export default class Number extends React.Component {
           ref={(input) => { this.refNumber = input; }}
           // data-moveCount={`${lastInt}+${diff}=${moveCount}`}
           style={{
-            backgroundPositionY: `${moveCount * -75}px`,
+            backgroundPositionY: `${moveCount * this.postionY}px`,
           }}
         />
       </div>

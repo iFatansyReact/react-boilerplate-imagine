@@ -6,24 +6,155 @@
 
   .thousand {
     display: inline-block;
-    width: 25px;
-    height: 78px;
-    background: transparent url('./img/number-split.png') repeat 0 0;
+    width: 7px;
+    height: 23px;
+    background: transparent url('./img/default/thousand.png') no-repeat 0 0;
   }
 
   .JackpotBox {
     display: inline-block;
     margin-right: 4px;
     padding: 1px 2px 2px 2px;
-    width: 54px;
-    background: transparent url('./img/number-one-bg.png') repeat 0 0;
+    width: 16px;
+    background: transparent url('./img/default/number-box.png') no-repeat 0 0;
 
     .JackpotNumber {
       float: left;
       width: 100%;
-      height: 75px;
+      height: 21px;
 
-      background: transparent url('./img/jackpot.png') repeat-y;
+      background: transparent url('./img/default/number.png') repeat-y;
+    }
+  }
+}
+
+$screen-xs-min:480px;
+$screen-sm-min:768px;
+$screen-md-min:992px;
+$screen-lg-min:1200px;
+
+@media (min-width: $screen-xs-min) {
+  .JackpotDiv {
+    width: 772px;
+    height: 79px;
+    overflow: hidden;
+    margin: 3px auto;
+
+    .thousand {
+      display: inline-block;
+      width: 11px;
+      height: 34px;
+      background: transparent url('./img/xs/thousand.png') no-repeat 0 0;
+    }
+
+    .JackpotBox {
+      display: inline-block;
+      margin-right: 4px;
+      padding: 1px 2px 2px 2px;
+      width: 24px;
+      background: transparent url('./img/xs/number-box.png') no-repeat 0 0;
+
+      .JackpotNumber {
+        float: left;
+        width: 100%;
+        height: 33px;
+        background: transparent url('./img/xs/number.png') repeat-y;
+      }
+    }
+  }
+}
+
+
+@media (min-width: $screen-sm-min) {
+  .JackpotDiv {
+    width: 772px;
+    height: 79px;
+    overflow: hidden;
+    margin: 3px auto;
+
+    .thousand {
+      display: inline-block;
+      width: 25px;
+      height: 78px;
+      background: transparent url('./img/lg/thousand.png') no-repeat 0 0;
+    }
+
+    .JackpotBox {
+      display: inline-block;
+      margin-right: 4px;
+      padding: 1px 2px 2px 2px;
+      width: 47px;
+      background: transparent url('./img/sm/number-box.png') no-repeat 0 0;
+
+      .JackpotNumber {
+        float: left;
+        width: 100%;
+        height: 64.5px;
+        background: transparent url('./img/sm/number.png') repeat-y;
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  .JackpotDiv {
+    width: 772px;
+    height: 79px;
+    overflow: hidden;
+    margin: 3px auto;
+
+    .thousand {
+      display: inline-block;
+      width: 25px;
+      height: 78px;
+      background: transparent url('./img/lg/thousand.png') no-repeat 0 0;
+    }
+
+    .JackpotBox {
+      display: inline-block;
+      margin-right: 4px;
+      padding: 1px 2px 2px 2px;
+      width: 49px;
+      background: transparent url('./img/md/number-box.png') no-repeat 0 0;
+
+      .JackpotNumber {
+        float: left;
+        width: 100%;
+        height: 67.5px;
+        background: transparent url('./img/md/number.png') repeat-y;
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  .JackpotDiv {
+    width: 772px;
+    height: 79px;
+    overflow: hidden;
+    margin: 3px auto;
+
+    .thousand {
+      display: inline-block;
+      width: 25px;
+      height: 78px;
+      background: transparent url('./img/lg/thousand.png') no-repeat 0 0;
+    }
+
+    .JackpotBox {
+      display: inline-block;
+      margin-right: 4px;
+      padding: 1px 2px 2px 2px;
+      width: 54px;
+      background: transparent url('./img/lg/number-box.png') no-repeat 0 0;
+
+      .JackpotNumber {
+        float: left;
+        width: 100%;
+        height: 75px;
+
+        background: transparent url('./img/lg/number.png') repeat-y;
+      }
     }
   }
 }
