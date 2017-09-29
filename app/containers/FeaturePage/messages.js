@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'boilerplate.containers.FeaturePage.header',
-    defaultMessage: 'Features',
+    defaultMessage: 'Features12313',
   },
   scaffoldingHeader: {
     id: 'boilerplate.containers.FeaturePage.scaffolding.header',
@@ -54,7 +54,7 @@ export default defineMessages({
   },
   cssHeader: {
     id: 'boilerplate.containers.FeaturePage.css.header',
-    defaultMessage: 'Features',
+    defaultMessage: 'Features12314',
   },
   cssMessage: {
     id: 'boilerplate.containers.FeaturePage.css.message',

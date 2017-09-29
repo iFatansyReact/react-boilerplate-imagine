@@ -47,6 +47,30 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
+      path: '/jackpot',
+      name: 'jackpot',
+      getComponent(nextState, cb) {
+        import('containers/JackpotPage')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
+      path: '/banner',
+      name: 'banner',
+      getComponent(nextState, cb) {
+        import('containers/BannerPage')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
+      path: '/carousel',
+      name: 'carousel',
+      getComponent(nextState, cb) {
+        import('containers/CarouselPage')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

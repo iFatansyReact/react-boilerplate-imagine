@@ -1,0 +1,139 @@
+.JackpotDiv {
+  // width: 772px; 
+  // height: 79px;
+  overflow: hidden;
+  margin: 3px auto;
+
+  .thousand {
+    display: inline-block;
+    width: 8px;
+    height: 24px;
+    background: transparent url('./img/lg/thousand.png') no-repeat center bottom;
+    background-size: 100%;
+  }
+
+  .JackpotBox {
+    display: inline-block;
+    margin-right: 1px;
+    padding: 1px 2px 2px;
+    width: 16px;
+    background: transparent url('./img/lg/number-box.png') no-repeat 0 0;
+    background-size: 100%;
+
+    .JackpotNumber {
+      float: left;
+      width: 14px;
+      height: 21px;
+      background: transparent url('./img/lg/number.png') repeat-y;
+      background-size: 100%;
+      background-position-x: -1px;
+    }
+  }
+}
+
+$screen-xs-min:480px;
+$screen-sm-min:768px;
+$screen-md-min:992px;
+$screen-lg-min:1200px;
+
+@media (min-width: $screen-xs-min) {
+  .JackpotDiv {
+    overflow: hidden;
+    margin: 3px auto;
+
+    .thousand {
+      width: 7px;
+      height: 36px;
+    }
+
+    .JackpotBox {
+      margin-right: 2px;
+      padding: 1px 2px 2px;
+      width: 24px;
+
+      .JackpotNumber {
+        width: 22px;
+        height: 33px;
+        background-position-x: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .JackpotDiv {
+    height: 79px;
+    overflow: hidden;
+    margin: 3px auto;
+
+    .thousand {
+      width: 21px;
+      height: 67px;
+    }
+
+    .JackpotBox {
+      margin-right: 6px;
+      padding: 1px 2px 2px;
+      width: 47px;
+
+      .JackpotNumber {
+        width: 100%;
+        height: 64.5px;
+        background-position-x: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  .JackpotDiv {
+    width: 772px;
+    height: 79px;
+    overflow: hidden;
+    margin: 3px auto;
+
+    .thousand {
+      width: 18px;
+      height: 78px;
+    }
+
+    .JackpotBox {
+      margin-right: 4px;
+      padding: 1px 2px 2px;
+      width: 49px;
+
+      .JackpotNumber {
+        float: left;
+        width: 45px;
+        height: 67.5px;
+        background-position-x: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  .JackpotDiv {
+    width: 772px;
+    height: 79px;
+    overflow: hidden;
+    margin: 3px auto;
+
+    .thousand {
+      width: 25px;
+      height: 78px;
+    }
+
+    .JackpotBox {
+      margin-right: 4px;
+      padding: 1px 2px 2px;
+      width: 54px;
+
+      .JackpotNumber {
+        width: 100%;
+        height: 75px;
+        background-position-x: 0;
+      }
+    }
+  }
+}
